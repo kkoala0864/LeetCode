@@ -17,10 +17,10 @@ int main() {
 //	node2->right = node5;
 //	node3->left = node6;
 //	node3->right = node7;
-	Solution test1;
-	test1.DebugPrint(node1);
+	Solution* test1 = new Solution();
+	test1->DebugPrint(node1);
 	std::cout << std::endl;
-	test1.invertTree(node1);
+	test1->invertTree(node1);
 	std::cout << std::endl;
-	test1.DebugPrint(node1);
+	test1->DebugPrint(node1);
 }
