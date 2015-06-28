@@ -1,16 +1,13 @@
 CC=g++
-ChaosLibPath=../ChaosLib
-VPATH=$(ChaosLibPath)
 
-all: libchaos exe
+.PHONY:
+all: exe Solution.o
 
-exe: main.h main.cpp
-	$(CC) main.h main.cpp -I$(ChaosLibPath) -L$(ChaosLibPath) -lchaos -Wl,-rpath=$(ChaosLibPath) -o exe -std=c++11 
+exe : main.cpp Solution.o
+	$(CC) -o exe main.cpp Solution.o -I.
 
-.PHONY: libchaos
-libchaos:
-	@make -C $(ChaosLibPath) -f ChaosLib.mk
+Solution.o : Solution.cpp Solution.h
+	$(CC) -o Solution.o -c Solution.cpp -I.
 
-clean:
-	cd $(ChaosLibPath); make -f ChaosLib.mk clean
-	rm exe
+clean : 
+	rm *.o exe

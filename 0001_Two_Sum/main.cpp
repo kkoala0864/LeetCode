@@ -1,23 +1,17 @@
-#include "ChaosLib.h"
-#include "main.h"
-#include <iterator>
-#include <iostream>
+#include <Solution.h>
 
 using namespace std;
-
-void debugprintf(vector<int> input) {
-	for ( vector<int>::iterator iter = input.begin() ; iter != input.end() ; ++iter ) {
-		cout << *iter << " ";
-	}
-	cout << endl;
-}
-
-
-
 int main(void) {
-	vector<int> input = {2, 6, 8, 9, 4, 7};
-	debugprintf(input);
-	Chaos::qsort(input, 0, input.size() - 1);
-	debugprintf(input);
+    Solution* test = new Solution();
 
+    vector<int> input;
+    input.push_back(3);
+    input.push_back(2);
+    input.push_back(4);
+    test->DebugPrint(input);
+    test->DebugPrint(test->twoSum(input, 6));
+
+
+    return 0;
 }
+
