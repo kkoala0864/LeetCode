@@ -7,16 +7,30 @@ bool increasingTriplet(vector<int>& nums) {
 	if ( nums.size() < 3 )
 		return false;
 
-	for (vector<int>::iterator iter = (nums.begin() + 1); iter != nums.end() ; iter++) {
-		if ( *(iter - 1) < *iter ) {
-			if ( !conted ) {
-				conted = true;
-			} else {
-				return true;
-			}
+	vector<int> orderArray;
+	orderArray.push_back(nums[0]);
+	for (vector<int>::iterator iter = (nums.begin() + 1); iter != nums.end() ; ++iter) {
+		size_t order_size = orderArray.size();
+		if ( *iter > orderArray[order_size - 1] ) {
+			orderArray.push_back(*iter);
 		} else {
-			conted = false;
+			if ( order_size > 1) {
+				if ( *iter < orderArray[0] ) {
+					orderArray[0] = *iter;
+				} else if ( *iter > orderArray[0] ) {
+					orderArray[1] = *iter;
+				}
+			} else if ( 1 == order_size ) {
+				orderArray[0] = *iter;
+			}
+		}
+		if ( 3 == orderArray.size() ) {
+			return true;
 		}
 	}
-	return false;
+	if ( 3 > orderArray.size() ) {
+		return false;
+	} else {
+		return true;
+	}
 }
