@@ -1,15 +1,21 @@
-CC=g++
+CC=gcc
+CXX=g++
 
-CFLAGS= -std=c++11
-all : exe
-.PHONY: all
+SRC=$(filter-out main.cpp,$(wildcard *.cpp))
+STATIC_OBJ=$(SRC:%.cpp=%.o)
+CFLAGS+=-O3
+CXXFLAGS+=-O3
+INC_PATH=-I.
 
-exe : main.cpp Solution.o
-	$(CC) -o exe main.cpp Solution.o -I. -g ${CFLAGS}
 
-Solution.o : Solution.cpp Solution.h
-	$(CC) -c Solution.cpp -o Solution.o -I. -g ${CFLAGS}
+.PHONY:
+all: exe
 
-.PHONY: clean
+exe : main.cpp $(STATIC_OBJ)
+	$(CXX) $(CXXFLAGS) -o exe $< $(STATIC_OBJ) $(INC_PATH)
+
+$(STATIC_OBJ) : $(SRC)
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(INC_PATH)
+
 clean :
-	rm Solution.o exe
+	rm *.o exe
