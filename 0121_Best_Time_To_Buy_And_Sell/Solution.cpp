@@ -20,3 +20,19 @@ int Solution::maxProfit(vector<int>& prices) {
     return max(S1[prices.size() - 1], S2[prices.size() - 1]);
 }
 
+/* Greedy algrithm */
+int Solution::maxProfit_greedy(vector<int>& prices) {
+    if (2 > prices.size())
+	return 0;
+
+    int minValue(prices[0]), maxProfit(0);
+
+    for ( int i = 1 ; i < prices.size() ; ++i ) {
+	if (prices[i] < minValue)
+	    minValue = prices[i];
+	if (prices[i] - minValue > maxProfit)
+	    maxProfit = prices[i] - minValue;
+    }
+    return maxProfit;
+}
+

@@ -12,8 +12,8 @@ int main(void) {
     input.push_back(2);
     input.push_back(9);
     input.push_back(7);
-    cout << "output: " << test->maxProfit(input) << endl;
-    cout << "output: " << test->maxProfit_greedy(input) << endl;
+    cout << test->maxProfit(input) << endl;
+    cout << test->maxProfit_greedy(input) << endl;
 
     return 0;
 }
