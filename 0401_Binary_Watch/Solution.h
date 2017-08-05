@@ -1,10 +1,11 @@
 #include <vector>
+#include <string>
 
 
 class Solution {
     public :
         Solution() {}
-        std::vector<int> twoSum(std::vector<int>& nums, int target);
+	std::vector<std::string> readBinaryWatch(int num);
     private :
         virtual ~Solution() {}
         Solution& operator=(const Solution& source);
