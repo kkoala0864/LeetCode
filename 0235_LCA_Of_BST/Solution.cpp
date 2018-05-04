@@ -1,20 +1,4 @@
 #include <Solution.h>
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
-bool findNode(TreeNode *root, TreeNode* node) {
-	if (nullptr == root || nullptr == node) {
-		return false;
-	}
-
-	if (root == node) {
-		return true;
-	}
-
-	return findNode(root->left, node) || findNode(root->right, node);
-}
 
 TreeNode* Solution::lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 	if (root == nullptr) {
@@ -25,24 +9,15 @@ TreeNode* Solution::lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* 
 		return root;
 	}
 
-	if (findNode(p, q)) {
-		return p;
-	}
-
-	if (findNode(q, p)) {
-		return q;
-	}
-
 	TreeNode *iter = root;
+	TreeNode *big = p->val > q->val ? p : q;
+	TreeNode *small = big == p ? q : p;
+
 	while (iter) {
-		if (findNode(iter->left, p)) {
-			if (findNode(iter->left, q)) {
-				iter = iter->left;
-			} else {
-				return iter;
-			}
+		if (iter->val > big->val) {
+			iter = iter->left;
 		} else {
-			if (findNode(iter->right, q)) {
+			if (iter->val < small->val) {
 				iter = iter->right;
 			} else {
 				return iter;
