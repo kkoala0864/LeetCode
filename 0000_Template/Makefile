@@ -17,6 +17,9 @@ exe : main.cpp $(STATIC_OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ -c $< -I$(INC_PATH) -MMD -MF .$@.d
 
 clean :
-	rm $(STATIC_OBJ) exe $(deps)
+	rm $(STATIC_OBJ) exe $(deps) &> /dev/null || true
+ifeq ($(shell uname -s),Darwin)
+	rm -rf exe.dSYM
+endif
 
 -include $(deps)
