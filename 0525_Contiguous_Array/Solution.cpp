@@ -1,32 +1,27 @@
 #include <Solution.h>
 #include <iostream>
-#include <unordered_map>
+
 using std::cout;
 using std::endl;
-using std::unordered_map;
 
 int Solution::findMaxLength(vector<int>& nums) {
     if (nums.size() < 2) {
 	return 0;
     }
-    size_t sizeNums = nums.size();
-    unordered_map<int, int> record;
-    int count(0);
+    int sizeNums = nums.size();
+    vector<int> array(2 * sizeNums + 1);
+    int count(sizeNums);
     int longestSize(0);
     for (size_t start = 0 ; start < sizeNums ; ++start) {
 	count += nums[start] == 0 ? -1 : 1;
-	if (0 != count && record[count] == 0) {
-	    record[count] = start + 1;
-	}
-	if (0 == count) {
+	if (sizeNums == count) {
 	    longestSize = start + 1;
 	} else {
-	    int localSize(0);
-	    if (record[count] != start + 1) {
-		localSize = start - record[count] + 1;
-	    }
-	    if (localSize > longestSize) {
-		longestSize = localSize;
+	    if (array[count] != 0) {
+		int localSize = start - array[count] + 1;
+		longestSize = longestSize > localSize ? longestSize : localSize;
+	    } else {
+		array[count] = start + 1;
 	    }
 	}
     }
