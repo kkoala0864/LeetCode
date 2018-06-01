@@ -1,4 +1,4 @@
-CXX=g++
+CXX=clang++
 
 SRC=$(filter-out main.cpp,$(wildcard *.cpp))
 STATIC_OBJ=$(SRC:%.cpp=%.o)

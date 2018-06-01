@@ -8,21 +8,22 @@
 
 using namespace std;
 
-void addToQueue(const string& current, int step, list<pair<string, int>>& rotation, unordered_map<string, int>& history) {
-    size_t size = current.size();
-    for (size_t idx = 0 ; idx < size ; ++idx) {
-	int number = current.at(idx) - '0';
-	string tmp(current);
-	tmp.at(idx) = ((number + 1) % 10) + '0';
-	if (0 == history[tmp]) {
-	    rotation.emplace_back(make_pair(tmp, step + 1));
-	    history[tmp] = 1;
+void addToQueue(const int current, const int step, list<pair<int, int>>& rotation, vector<int>& history) {
+    int baseline(1);
+    for (int i = 0 ; i < 4 ; ++i) {
+	int base = baseline * 10;
+	int divide = (current / base) * base;
+	int addOne = divide + ((current + (1 * baseline)) % base);
+	int minusOne = divide + ((current + (9 * baseline)) % base);
+	if (history[addOne] == 0) {
+	    rotation.emplace_back(make_pair(addOne, step + 1));
+	    history[addOne] = 1;
 	}
-	tmp.at(idx) = ((number + 9) % 10) + '0';
-	if (0 == history[tmp]) {
-	    rotation.emplace_back(make_pair(tmp, step + 1));
-	    history[tmp] = 1;
+	if (history[minusOne] == 0) {
+	    rotation.emplace_back(make_pair(minusOne, step + 1));
+	    history[minusOne] = 1;
 	}
+	baseline *= 10;
     }
 }
 
@@ -31,20 +32,20 @@ int Solution::openLock(vector<string>& deadends, string target) {
 	return -1;
     }
 
-    list<pair<string, int>> rotation;
-    unordered_map<string, int> history;
-    int minStep(INT_MAX);
+    list<pair<int, int>> rotation;
+    vector<int> history(10000, 0);
+    int iTarget = stoi(target);
 
     for (const auto& idx : deadends) {
-	history[idx] = -1;
+	history[stoi(idx)] = -1;
     }
-    rotation.emplace_back(make_pair(target, 0));
+    rotation.emplace_back(make_pair(iTarget, 0));
 
     while (!rotation.empty()) {
-	string current = rotation.front().first;
+	int current = rotation.front().first;
 	int step = rotation.front().second;
 	rotation.pop_front();
-	if (current == "0000") {
+	if (current == 0) {
 	    return step;
 	} else {
 	    addToQueue(current, step, rotation, history);
