@@ -8,6 +8,7 @@ class Solution {
     public :
         Solution() {}
 	int openLock(vector<string>& deadends, string target);
+	int openLock2(vector<string>& deadends, string target);
     private :
         virtual ~Solution() {}
         Solution& operator=(const Solution& source);
