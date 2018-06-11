@@ -5,28 +5,14 @@ using namespace std;
 
 ListNode* Solution::oddEvenList(ListNode* head) {
     if (head) {
-	ListNode *pOddTail = head;
-	ListNode *pEvenHead = head->next, *pEvenTail = head->next;
-	if (pEvenTail == nullptr) return head;
-	ListNode *iter = pEvenTail->next;
-
-	int count(1);
-	while (iter != nullptr) {
-	    if (count & 1) {
-		pOddTail->next = iter;
-		pOddTail = iter;
-	    } else {
-		pEvenTail->next = iter;
-		pEvenTail = iter;
-	    }
-	    ++count;
-	    iter = iter->next;
+	ListNode *oddIter = head, *evenHead = head->next, *evenIter = evenHead;
+	while (evenIter && evenIter->next) {
+	    oddIter->next = evenIter->next;
+	    oddIter = oddIter->next;
+	    evenIter->next = oddIter->next;
+	    evenIter = evenIter->next;
 	}
-	if (pEvenTail->next != nullptr) {
-	    pEvenTail->next = nullptr;
-	}
-
-	pOddTail->next = pEvenHead;
+	oddIter->next = evenHead;
     }
     return head;
 }
