@@ -1,15 +1,16 @@
 #include <Solution.h>
+#include <iostream>
 
 using namespace std;
 int main(void) {
     Solution* test = new Solution();
 
-    vector<int> input;
-    input.push_back(3);
-    input.push_back(2);
-    input.push_back(4);
-    test->DebugPrint(input);
-    test->DebugPrint(test->twoSum(input, 6));
+    vector<int> input = {3, 2, 4};
+    auto ret = test->twoSum(input, 6);
+    for (const auto& val : ret) {
+	cout << val << " ";
+    }
+    cout << endl;
 
 
     return 0;
