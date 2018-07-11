@@ -30,3 +30,6 @@
 # Tmp file
 *.swp
 *.swo
+
+.*.d
+exe
