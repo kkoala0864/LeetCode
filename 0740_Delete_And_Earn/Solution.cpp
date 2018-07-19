@@ -14,9 +14,8 @@ int getMaxValInterval(const vector<int>& numRecord, int start, int end) {
     vector<int> dp(end - start + 1, 0);
     dp.at(0) = start * numRecord.at(start);
     dp.at(1) = max((start + 1) * numRecord.at(start + 1), dp.at(0));
-    dp.at(2) = max( (start+2) * numRecord.at(start+2) + dp.at(0), (start+1) * numRecord.at(start+1));
-    for (int i = 3 ; i < (end-start+1) ; ++i) {
-	dp.at(i) = max((start+i) * numRecord.at(start+i) + dp.at(i-2), (start+i-1) * numRecord.at(start+i-1) + dp.at(i-3));
+    for (int i = 2 ; i < (end-start+1) ; ++i) {
+	dp.at(i) = max((start+i) * numRecord.at(start+i) + dp.at(i-2), dp.at(start+i-1));
     }
     return dp.at(end-start);
 }
