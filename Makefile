@@ -9,6 +9,7 @@ $(SUBDIRS) :
 
 clean :
 	for dir in $(SUBDIRS); do \
+	        echo $$dir; \
 		$(MAKE) clean -C $$dir; \
 	done
 
