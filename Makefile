@@ -1,4 +1,8 @@
-SUBDIRS=$(shell ls -d *_*)
+EXDIR := Remove_Duplicates_From_LinkList \
+         ChaosLib \
+	 include
+
+SUBDIRS:=$(filter-out $(EXDIR), $(shell ls -d *_*))
 
 .PHONY: all $(SUBDIRS) clean
 
